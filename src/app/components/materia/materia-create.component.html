@@ -1,0 +1,43 @@
+<!-- src/app/materia/materia.component.html -->
+
+<div class="container">
+    <h2>Materias</h2>
+    
+    <form [formGroup]="materiaForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label>Nombre:</label>
+        <input type="text" formControlName="nombre" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label>Tema:</label>
+        <input type="text" formControlName="tema" class="form-control" />
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="materiaForm.invalid">{{ editingMateria ? 'Actualizar' : 'Crear' }}</button>
+      <button type="button" class="btn btn-secondary" (click)="resetFormAndReload()" *ngIf="editingMateria">Cancelar</button>
+    </form>
+  
+    <div *ngIf="showAlert" class="alert alert-{{ alertType }}" role="alert">
+      {{ alertMessage }}
+    </div>
+  
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Tema</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let materia of materias">
+          <td>{{ materia.nombre }}</td>
+          <td>{{ materia.tema }}</td>
+          <td>
+            <button (click)="editMateria(materia)" class="btn btn-sm btn-info">Editar</button>
+            <button (click)="deleteMateria(materia.id)" class="btn btn-sm btn-danger">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
